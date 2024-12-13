@@ -33,7 +33,7 @@ export default function FilmDetails(){
 
     // to move to component
     function handleSubmit(e) {
-        e.preventDefault()
+        // e.preventDefault()
         fetch(`http://localhost:3000/${params.id}`, {
             method: 'POST',
             headers:{'Content-Type':'application/json'},
@@ -113,7 +113,7 @@ export default function FilmDetails(){
 
                     <div className="row gap-4">
                     {/* create component for reviews card (or maybe all the container ^_^ -- new */}
-                        {movie.reviews.map(review => <Reviews element={review}/> )}
+                        {movie.reviews.map(review => <Reviews element={review} key={review.id}/> )}
                     </div>
 
                 </div>
