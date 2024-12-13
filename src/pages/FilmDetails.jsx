@@ -7,7 +7,7 @@ import Reviews from "../components/Reviews"
 const initialFormData ={ 
     name: "",
     text: "",
-    vote : 5 
+    vote : 0
 }
 
 export default function FilmDetails(){
@@ -33,15 +33,18 @@ export default function FilmDetails(){
 
     // to move to component
     function handleSubmit(e) {
-        // e.preventDefault()
-        fetch(`http://localhost:3000/${params.id}`, {
-            method: 'POST',
-            headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({...formData})
-        })
-        .then(response => console.log(response)
-        )
-        .then(data => console.log(data))
+        e.preventDefault()
+        if(formData != initialFormData){
+            fetch(`http://localhost:3000/${params.id}`, {
+                method: 'POST',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({...formData})
+            })
+            .then(response => console.log(response)
+            )
+            .then(data => {window.location.reload()}) //reload page
+        }
+        
         
     }
 
@@ -98,13 +101,16 @@ export default function FilmDetails(){
                             </div>
 
                             {/* stars */}
-                            <div className="d-flex">
-                                <i className="bi bi-star-fill text-warning" aria-hidden="true"></i>
-                                <i className="bi bi-star-half text-warning" aria-hidden="true"></i>
-                                <i className="bi bi-star text-warning" aria-hidden="true"></i>
-                                <i className="bi bi-star text-warning" aria-hidden="true"></i>
-                                <i className="bi bi-star text-warning" aria-hidden="true"></i>
+                            <div className="d-flex text-warning">
+                                {[1, 2, 3, 4, 5].map(n => 
+                                    <i 
+                                        key={n} 
+                                        className={`bi bi-star${n <= formData.vote ? '-fill' : ''} `} 
+                                        onClick={() => setFormData({...formData, vote: n})}
+                                    ></i>
+                                )}
                             </div>
+
 
                             <button type="submit">Post</button>
 
