@@ -44,11 +44,11 @@ export default function FilmDetails(){
 
     
     return(
-        <>
+        <div className="container">
 
         {loading ? <Loader /> :
             (movie &&
-                <div className="container">
+                <div className="">
                     <div className="d-flex border border-dark-subtle rounded shadow bg-secondary-subtle">
                         <div className="w-25">
                             <img src={getImg} alt={'img'} className="img-fluid rounded" />
@@ -81,6 +81,6 @@ export default function FilmDetails(){
             )
         }
 
-        </>
+        </div>
     )
 }

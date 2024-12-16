@@ -1,10 +1,11 @@
 import { useGlobalContext } from "../contexts/GlobalContext"
 import Card from "../components/Card"
 import { useEffect,useState } from "react"
+import Loader from "../components/Loader"
 
 export default function HomePage(){
     
-    const {movies, getImg} = useGlobalContext()    
+    const {movies, getImg, loading} = useGlobalContext()    
     /* const [loading, setLoading] = useState(true);
 
    const loadingFunction =  useEffect(() => {
@@ -35,7 +36,12 @@ export default function HomePage(){
     return(
         <div className="container">
             <div className="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-4 flex-wrap justify-content-center align-items-stretch">
-            {movies.length !== 0 ? movies.map(movie => <Card key={movie.id} movie={movie} getImg={getImg}/>)
+            
+            
+            
+            {loading ? <Loader /> :
+                        
+            movies.length !== 0 ? movies.map(movie => <Card key={movie.id} movie={movie} getImg={getImg}/>)
                 
                 :<div className="w-100 vh-100">
                     <h2 className="text-white">

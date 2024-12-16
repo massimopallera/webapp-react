@@ -80,10 +80,10 @@ export default function ReviewsForm({id}){
                 </div>
 
 
+                {/* put state of post form here */}
                 <h3 className="text-white">{formMessage}</h3>
 
             </form>
-                {/* put state of post form here */}
         </div>
     )
 }
