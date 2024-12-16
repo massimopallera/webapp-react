@@ -8,6 +8,7 @@ import ReviewsForm from "../components/ReviewsForm"
 export default function FilmDetails(){
     
     const [movie, setMovie] = useState()
+    const [btn, setBtn] = useState('Add Review')
     const {getImg} = useGlobalContext()
 
     const params = useParams()
@@ -25,7 +26,16 @@ export default function FilmDetails(){
 
 
 
-    // to move to component
+    function toggleForm(){
+        const formEl = document.querySelector('form')
+        formEl.classList.toggle('d-none')
+
+        if(formEl.classList.contains('d-none')){
+            setBtn('Close Review Form')
+        } else {
+            setBtn('Add Review')
+        }
+    }
   
 
     
@@ -54,7 +64,7 @@ export default function FilmDetails(){
                     <div className="d-flex align-items-center justify-content-center gap-5 mt-5 mb-4">
                         <h2 className=" text-light">Reviews</h2>
                         <div>
-                            <button className="btn btn-primary" onClick={() => toggleForm}>Add Review</button>
+                            <button className="btn btn-primary" onClick={() => {toggleForm()}}>{btn}</button>
                         </div>
                     </div>
 
