@@ -1,6 +1,5 @@
 import { useState } from "react"
 
-
 const initialFormData ={ 
     name: "",
     text: "",
@@ -29,9 +28,8 @@ export default function ReviewsForm({id}){
                 body: JSON.stringify({...formData})
             })
             .then(response => formMsg(response))
-            // .then((data) => formMsg(data?.success, data?.message) )
         }
-        }
+    }
 
     function formMsg(bool, message=null){
         if (bool) {
@@ -44,10 +42,6 @@ export default function ReviewsForm({id}){
             setFormMessage('')
         },2000)
     }
-
-
-    console.log(formData);
-    
 
     return(
         <div>

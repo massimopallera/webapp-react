@@ -3,6 +3,7 @@ import { useGlobalContext } from "../contexts/GlobalContext"
 import { useEffect, useState } from "react"
 import Reviews from "../components/Reviews"
 import ReviewsForm from "../components/ReviewsForm"
+import Loader from "../components/Loader"
 
 
 export default function FilmDetails(){
@@ -11,20 +12,23 @@ export default function FilmDetails(){
     const [btn, setBtn] = useState('Add Review')
     const {getImg} = useGlobalContext()
 
+
+    const [loading, setLoading] = useState(false)
+
+
     const params = useParams()
     
     
-    useEffect( () => {fetch(`http://localhost:3000/${params.id}`)
+    useEffect( () => {
+                
+    setLoading(true)    
+        
+    fetch(`http://localhost:3000/${params.id}`)
     .then(resp => resp.json())
-    .then(data => setMovie(data.result))
+    .then(data => {setMovie(data.result); setLoading(false)})
     },[])
 
     const navigate = useNavigate()
-
-    // movie ? console.log(movie) : null
-    // console.log(formData);
-
-
 
     function toggleForm(){
         const formEl = document.querySelector('form')
@@ -41,8 +45,9 @@ export default function FilmDetails(){
     
     return(
         <>
-            {movie &&
-                // create component for single film card
+
+        {loading ? <Loader /> :
+            (movie &&
                 <div className="container">
                     <div className="d-flex border border-dark-subtle rounded shadow bg-secondary-subtle">
                         <div className="w-25">
@@ -59,8 +64,6 @@ export default function FilmDetails(){
                         </div>
                     </div>
 
-                    {/* add a form to create new reviews, remember to refresh the reviews then */}
-
                     <div className="d-flex align-items-center justify-content-center gap-5 mt-5 mb-4">
                         <h2 className=" text-light">Reviews</h2>
                         <div>
@@ -68,21 +71,16 @@ export default function FilmDetails(){
                         </div>
                     </div>
 
-
-
-                    {/* form */}
                     <ReviewsForm id={params.id}></ReviewsForm>
 
                     <div className="row gap-4">
-                    {/* create component for reviews card (or maybe all the container ^_^ -- new */}
                         {movie.reviews.map(review => <Reviews element={review} key={review.id}/> )}
                     </div>
 
                 </div>
-            }
-            {!movie &&
-                <h1>Film not found</h1>
-            }
+            )
+        }
+
         </>
     )
 }
