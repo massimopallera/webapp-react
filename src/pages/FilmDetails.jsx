@@ -19,11 +19,8 @@ export default function FilmDetails(){
     const params = useParams()
     
     
-    useEffect( () => {
-                
-    setLoading(true)    
-        
-    fetch(`http://localhost:3000/${params.id}`)
+
+    useEffect( () => {fetch(`http://192.168.5.153:3000/${params.id}`)
     .then(resp => resp.json())
     .then(data => {setMovie(data.result); setLoading(false)})
     },[])

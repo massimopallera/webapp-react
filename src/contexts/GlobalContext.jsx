@@ -16,7 +16,7 @@ function GlobalContextProvider({ children }) {
         setLoading(true)
 
         //fetch data from API
-        fetch('http://localhost:3000')
+        fetch('http://192.168.5.153:3000')
         .then(resp => resp.json())
         .then(data => {setMovies(data.results); setLoading(false)})
 

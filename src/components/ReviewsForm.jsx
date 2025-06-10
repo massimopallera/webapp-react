@@ -21,8 +21,7 @@ export default function ReviewsForm({id}){
         if (formData.name == '') return formMsg(false, 'username is empty')
 
         if(formData != initialFormData){
-
-            fetch(`http://localhost:3000/${id}`, {
+            fetch(`http://192.168.5.153:3000/${id}`, {
                 method: 'POST',
                 headers:{'Content-Type':'application/json'},
                 body: JSON.stringify({...formData})
